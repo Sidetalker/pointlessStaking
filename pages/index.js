@@ -62,6 +62,13 @@ export default function Home() {
     refetchStakingInfo();
   };
 
+  const tokenAddress = '0xD301511Ab784A2F79A70a39A4c90a8DA479e09a4';
+  const tokenSymbol = 'points';
+  const tokenAddress2 = '0x9B8cc6320F22325759B7D2CA5CD27347bB4eCD86';
+  const tokenSymbol2 = 'pointless';
+  const tokenDecimals = 18;
+  const tokenImage = 'https://i.pinimg.com/736x/d6/72/38/d672389be474e5920da7aeb9cc89bb09.jpg';
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -73,6 +80,47 @@ export default function Home() {
 
         <div className={styles.connect}>
           <ConnectWallet />
+        </div>
+
+        <div>
+          <Web3Button
+            className={styles.button}
+            contractAddress={stakingContractAddress}
+            action={async (contract) => {
+              await ethereum.request({
+              method: 'wallet_watchAsset',
+              params: {
+                type: 'ERC20', 
+                options: {
+                  address: tokenAddress, 
+                  symbol: tokenSymbol, 
+                  decimals: tokenDecimals, 
+                  image: tokenImage, 
+                },
+              },
+            });}}
+          >
+            Add Points to Metamask
+          </Web3Button>
+          <Web3Button
+            className={styles.button}
+            contractAddress={stakingContractAddress}
+            action={async (contract) => {
+              await ethereum.request({
+              method: 'wallet_watchAsset',
+              params: {
+                type: 'ERC20', 
+                options: {
+                  address: tokenAddress2, 
+                  symbol: tokenSymbol2, 
+                  decimals: tokenDecimals, 
+                  image: tokenImage, 
+                },
+              },
+            });}}
+          >
+            Add Pointless to Metamask
+          </Web3Button>
         </div>
 
         <div className={styles.stakeContainer}>
