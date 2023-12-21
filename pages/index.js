@@ -67,7 +67,7 @@ export default function Home() {
   const tokenAddress2 = '0x9B8cc6320F22325759B7D2CA5CD27347bB4eCD86';
   const tokenSymbol2 = 'pointless';
   const tokenDecimals = 18;
-  const tokenImage = 'https://i.pinimg.com/736x/d6/72/38/d672389be474e5920da7aeb9cc89bb09.jpg';
+  const tokenImage = 'https://pbs.twimg.com/profile_images/1737784203025018881/KK_wEC7t_400x400.jpg';
 
   return (
     <div className={styles.container}>
@@ -77,6 +77,8 @@ export default function Home() {
         <p className={styles.description}>
           Stake your pointless to earn points!
         </p>
+
+        <img src="https://pbs.twimg.com/profile_images/1737784203025018881/KK_wEC7t_400x400.jpg" alt="Pointless logo" width="150" height="150"/><br/>
 
         <div className={styles.connect}>
           <ConnectWallet />
