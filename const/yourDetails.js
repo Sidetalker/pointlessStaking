@@ -1,0 +1,1 @@
+export const stakingContractAddress = "0xE03D2159ADB67A8e85E0c8b82D35a3C685368EEb";
