@@ -101,7 +101,7 @@ export default function Home() {
           Stake your pointless to earn points!
         </p>
 
-        <img src="https://pbs.twimg.com/profile_images/1737784203025018881/KK_wEC7t_400x400.jpg" alt="Pointless logo" width="150" height="150"/><br/>
+        <img src="/images/pointless.png" alt="Pointless logo" width="150" height="150"/><br/>
 
         <div className={styles.connect}>
           <ConnectWallet />
