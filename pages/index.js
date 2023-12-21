@@ -85,25 +85,7 @@ export default function Home() {
         </div>
 
         <div>
-          <Web3Button
-            className={styles.button}
-            contractAddress={stakingContractAddress}
-            action={async (contract) => {
-              await ethereum.request({
-              method: 'wallet_watchAsset',
-              params: {
-                type: 'ERC20', 
-                options: {
-                  address: tokenAddress, 
-                  symbol: tokenSymbol, 
-                  decimals: tokenDecimals, 
-                  image: tokenImage, 
-                },
-              },
-            });}}
-          >
-            Add Points to Metamask
-          </Web3Button>
+
           <Web3Button
             className={styles.button}
             contractAddress={stakingContractAddress}
@@ -123,7 +105,29 @@ export default function Home() {
           >
             Add Pointless to Metamask
           </Web3Button>
+          
+          <Web3Button
+            className={styles.button}
+            contractAddress={stakingContractAddress}
+            action={async (contract) => {
+              await ethereum.request({
+              method: 'wallet_watchAsset',
+              params: {
+                type: 'ERC20', 
+                options: {
+                  address: tokenAddress, 
+                  symbol: tokenSymbol, 
+                  decimals: tokenDecimals, 
+                  image: tokenImage, 
+                },
+              },
+            });}}
+          >
+            Add Points to Metamask
+          </Web3Button>
         </div>
+
+        <br/>
 
         <div className={styles.stakeContainer}>
           <input
@@ -184,15 +188,17 @@ export default function Home() {
           </a>
 
           <a className={styles.card}>
-            <h2>Points Balance</h2>
-            <p>{rewardTokenBalance?.displayValue}</p>
-          </a>
-
-          <a className={styles.card}>
             <h2>Pointless Staked</h2>
             <p>
               {stakeInfo && ethers.utils.formatEther(stakeInfo[0].toString())}
             </p>
+          </a>
+        </div>
+
+        <div className={styles.grid}>
+          <a className={styles.card}>
+            <h2>Points Balance</h2>
+            <p>{rewardTokenBalance?.displayValue}</p>
           </a>
 
           <a className={styles.card}>
