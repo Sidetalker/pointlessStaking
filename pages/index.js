@@ -42,6 +42,13 @@ export default function Home() {
     useTokenBalance(stakingToken, address);
   const { data: rewardTokenBalance, refetch: refetchRewardTokenBalance } =
     useTokenBalance(rewardToken, address);
+  const { data: totalStaked, refetch: refetchTotalStaked } =
+    useContractRead(staking, "stakingTokenBalance");
+  const { data: stakerArr, refetch: refetchStakerArr } =
+    useContractRead(staking, "stakers", ["0x8eCa96806675Ed3882C844a8D2bB09005EeAd9bf"]);
+
+    
+  // const { data: totalStaked } = useContractRead(staking, "stakingTokenBalance", []);
 
   // Get staking data
   const {
@@ -53,13 +60,15 @@ export default function Home() {
   useEffect(() => {
     setInterval(() => {
       refetchData();
-    }, 10000);
+    }, 2000);
   }, []);
 
   const refetchData = () => {
     refetchRewardTokenBalance();
     refetchStakingTokenBalance();
     refetchStakingInfo();
+    refetchTotalStaked();
+    refetchStakerArr();
   };
 
   const tokenAddress = '0xD301511Ab784A2F79A70a39A4c90a8DA479e09a4';
@@ -68,6 +77,20 @@ export default function Home() {
   const tokenSymbol2 = 'pointless';
   const tokenDecimals = 18;
   const tokenImage = 'https://pbs.twimg.com/profile_images/1737784203025018881/KK_wEC7t_400x400.jpg';
+
+  function formatCompactNumber(number) {
+    if (number < 1000) {
+      return number;
+    } else if (number >= 1000 && number < 1_000_000) {
+      return (number / 1000).toFixed(4) + "K";
+    } else if (number >= 1_000_000 && number < 1_000_000_000) {
+      return (number / 1_000_000).toFixed(4) + "M";
+    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
+      return (number / 1_000_000_000).toFixed(4) + "B";
+    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
+      return (number / 1_000_000_000_000).toFixed(4) + "T";
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -105,7 +128,7 @@ export default function Home() {
           >
             Add Pointless to Metamask
           </Web3Button>
-          
+
           <Web3Button
             className={styles.button}
             contractAddress={stakingContractAddress}
@@ -183,29 +206,40 @@ export default function Home() {
 
         <div className={styles.grid}>
           <a className={styles.card}>
+            <h2>Total Staked</h2>
+            <center><p>{formatCompactNumber(totalStaked && ethers.utils.formatEther(totalStaked.toString()))}</p></center>
+          </a>
+          <a className={styles.card}>
+            <h2>Staker Count</h2>
+            <center><p>{stakerArr?.length}</p></center>
+          </a>
+        </div>
+
+        <div className={styles.grid}>
+          <a className={styles.card}>
             <h2>Pointless Balance</h2>
-            <p>{stakingTokenBalance?.displayValue}</p>
+            <center><p>{formatCompactNumber(stakingTokenBalance?.displayValue)}</p></center>
           </a>
 
           <a className={styles.card}>
             <h2>Pointless Staked</h2>
-            <p>
-              {stakeInfo && ethers.utils.formatEther(stakeInfo[0].toString())}
-            </p>
+            <center><p>
+              {formatCompactNumber(stakeInfo && ethers.utils.formatEther(stakeInfo[0].toString()))}
+            </p></center>
           </a>
         </div>
 
         <div className={styles.grid}>
           <a className={styles.card}>
             <h2>Points Balance</h2>
-            <p>{rewardTokenBalance?.displayValue}</p>
+            <center><p>{formatCompactNumber(rewardTokenBalance?.displayValue * 1)}</p></center>
           </a>
 
           <a className={styles.card}>
             <h2>Points Accumulated</h2>
-            <p>
-              {stakeInfo && ethers.utils.formatEther(stakeInfo[1].toString())}
-            </p>
+            <center><p>
+              {formatCompactNumber(stakeInfo && ethers.utils.formatEther(stakeInfo[1].toString()) * 1)}
+            </p></center>
           </a>
         </div>
       </main>
