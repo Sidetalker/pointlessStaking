@@ -80,7 +80,7 @@ export default function Home() {
 
   function formatCompactNumber(number) {
     if (number < 1000) {
-      return number;
+      return number.toFixed(4);
     } else if (number >= 1000 && number < 1_000_000) {
       return (number / 1000).toFixed(4) + "K";
     } else if (number >= 1_000_000 && number < 1_000_000_000) {
