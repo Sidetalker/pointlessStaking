@@ -44,12 +44,7 @@ export default function Home() {
     useTokenBalance(rewardToken, address);
   const { data: totalStaked, refetch: refetchTotalStaked } =
     useContractRead(staking, "stakingTokenBalance");
-  const { data: stakerArr, refetch: refetchStakerArr } =
-    useContractRead(staking, "stakers", ["0x8eCa96806675Ed3882C844a8D2bB09005EeAd9bf"]);
-
     
-  // const { data: totalStaked } = useContractRead(staking, "stakingTokenBalance", []);
-
   // Get staking data
   const {
     data: stakeInfo,
@@ -63,12 +58,11 @@ export default function Home() {
     }, 2000);
   }, []);
 
-  const refetchData = () => {
-    refetchRewardTokenBalance();
+  const refetchData = async () => {
+    refetchRewardTokenBalance(); 
     refetchStakingTokenBalance();
     refetchStakingInfo();
     refetchTotalStaked();
-    refetchStakerArr();
   };
 
   const tokenAddress = '0xD301511Ab784A2F79A70a39A4c90a8DA479e09a4';
@@ -208,10 +202,6 @@ export default function Home() {
           <a className={styles.card}>
             <h2>Total Staked</h2>
             <center><p>{formatCompactNumber(totalStaked && ethers.utils.formatEther(totalStaked.toString()))}</p></center>
-          </a>
-          <a className={styles.card}>
-            <h2>Staker Count</h2>
-            <center><p>{stakerArr?.length}</p></center>
           </a>
         </div>
 
