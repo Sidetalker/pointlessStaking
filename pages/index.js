@@ -73,18 +73,18 @@ export default function Home() {
   const tokenImage = 'https://pbs.twimg.com/profile_images/1737784203025018881/KK_wEC7t_400x400.jpg';
 
   function formatCompactNumber(number) {
-    return number
-    // if (number < 1000) {
-    //   return number.toFixed(4);
-    // } else if (number >= 1000 && number < 1_000_000) {
-    //   return (number / 1000).toFixed(4) + "K";
-    // } else if (number >= 1_000_000 && number < 1_000_000_000) {
-    //   return (number / 1_000_000).toFixed(4) + "M";
-    // } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
-    //   return (number / 1_000_000_000).toFixed(4) + "B";
-    // } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
-    //   return (number / 1_000_000_000_000).toFixed(4) + "T";
-    // }
+    if (typeof number != 'number') { return number }
+    if (number < 1000) {
+      return number.toFixed(4);
+    } else if (number >= 1000 && number < 1_000_000) {
+      return (number / 1000).toFixed(4) + "K";
+    } else if (number >= 1_000_000 && number < 1_000_000_000) {
+      return (number / 1_000_000).toFixed(4) + "M";
+    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
+      return (number / 1_000_000_000).toFixed(4) + "B";
+    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
+      return (number / 1_000_000_000_000).toFixed(4) + "T";
+    }
   }
 
   return (
@@ -202,20 +202,20 @@ export default function Home() {
         <div className={styles.grid}>
           <a className={styles.card}>
             <h2>Total Staked</h2>
-            <center><p>{formatCompactNumber(totalStaked && ethers.utils.formatEther(totalStaked.toString()))}</p></center>
+            <center><p>{formatCompactNumber((totalStaked && ethers.utils.formatEther(totalStaked.toString()) * 1))}</p></center>
           </a>
         </div>
 
         <div className={styles.grid}>
           <a className={styles.card}>
             <h2>Pointless Balance</h2>
-            <center><p>{formatCompactNumber(stakingTokenBalance?.displayValue)}</p></center>
+            <center><p>{formatCompactNumber(stakingTokenBalance?.displayValue * 1)}</p></center>
           </a>
 
           <a className={styles.card}>
             <h2>Pointless Staked</h2>
             <center><p>
-              {formatCompactNumber(stakeInfo && ethers.utils.formatEther(stakeInfo[0].toString()))}
+              {formatCompactNumber((stakeInfo && ethers.utils.formatEther(stakeInfo[0].toString()) * 1))}
             </p></center>
           </a>
         </div>
