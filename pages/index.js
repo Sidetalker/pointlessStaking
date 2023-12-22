@@ -73,17 +73,18 @@ export default function Home() {
   const tokenImage = 'https://pbs.twimg.com/profile_images/1737784203025018881/KK_wEC7t_400x400.jpg';
 
   function formatCompactNumber(number) {
-    if (number < 1000) {
-      return number.toFixed(4);
-    } else if (number >= 1000 && number < 1_000_000) {
-      return (number / 1000).toFixed(4) + "K";
-    } else if (number >= 1_000_000 && number < 1_000_000_000) {
-      return (number / 1_000_000).toFixed(4) + "M";
-    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
-      return (number / 1_000_000_000).toFixed(4) + "B";
-    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
-      return (number / 1_000_000_000_000).toFixed(4) + "T";
-    }
+    return number
+    // if (number < 1000) {
+    //   return number.toFixed(4);
+    // } else if (number >= 1000 && number < 1_000_000) {
+    //   return (number / 1000).toFixed(4) + "K";
+    // } else if (number >= 1_000_000 && number < 1_000_000_000) {
+    //   return (number / 1_000_000).toFixed(4) + "M";
+    // } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
+    //   return (number / 1_000_000_000).toFixed(4) + "B";
+    // } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
+    //   return (number / 1_000_000_000_000).toFixed(4) + "T";
+    // }
   }
 
   return (
