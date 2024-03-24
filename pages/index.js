@@ -101,6 +101,8 @@ export default function Home() {
 
         <img src="/images/pointless.png" alt="Pointless logo" width="150" height="150"/><br/>
 
+        <center>Staking has been discontinued. All stakers have been airdropped 5m $pointless.</center><br/>
+
         <div className={styles.connect}>
           <ConnectWallet />
         </div>
