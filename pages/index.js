@@ -10,6 +10,8 @@ import {
   Web3Button,
 } from "@thirdweb-dev/react";
 
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { stakingContractAddress } from "../const/yourDetails";
@@ -17,6 +19,7 @@ import { stakingContractAddress } from "../const/yourDetails";
 export default function Home() {
   const address = useAddress();
   const [amountToStake, setAmountToStake] = useState(0);
+  const sdk = new ThirdwebSDK("polygon");
 
   // Initialize all the contracts
   const { contract: staking, isLoading: isStakingLoading } = useContract(
@@ -58,12 +61,34 @@ export default function Home() {
     }, 2000);
   }, []);
 
-  const refetchData = async () => {
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     updateStakes();
+  //   }, 60000);
+  // }, []);
+
+  const refetchData = () => {
     refetchRewardTokenBalance(); 
     refetchStakingTokenBalance();
     refetchStakingInfo();
     refetchTotalStaked();
   };
+
+  const updateStakes = async () => {
+    const contract = await sdk.getContract(stakingContractAddress);
+
+    let i = 0;
+    let running = true;
+    while(running) {
+      try {
+        const staker = await contract.call("stakersArray", [i]);
+        console.log(staker);
+        i++;
+      } catch (error) {
+        running = false;
+      }
+    }
+  }
 
   const tokenAddress = '0xD301511Ab784A2F79A70a39A4c90a8DA479e09a4';
   const tokenSymbol = 'points';
@@ -121,7 +146,17 @@ export default function Home() {
               },
             });}}
           >
-            Add Pointless to Metamask
+          Add Pointless to Metamask
+          </Web3Button>
+          
+
+          <Web3Button
+            className={styles.button}
+            action={async () => {
+              await updateStakes();
+            }}
+          >
+            Update stakers
           </Web3Button>
 
           <Web3Button
@@ -169,6 +204,7 @@ export default function Home() {
               );
               alert("Tokens staked successfully!");
             }}
+            isDisabled
           >
             Stake!
           </Web3Button>
