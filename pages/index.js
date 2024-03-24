@@ -61,34 +61,12 @@ export default function Home() {
     }, 2000);
   }, []);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     updateStakes();
-  //   }, 60000);
-  // }, []);
-
   const refetchData = () => {
     refetchRewardTokenBalance(); 
     refetchStakingTokenBalance();
     refetchStakingInfo();
     refetchTotalStaked();
   };
-
-  const updateStakes = async () => {
-    const contract = await sdk.getContract(stakingContractAddress);
-
-    let i = 0;
-    let running = true;
-    while(running) {
-      try {
-        const staker = await contract.call("stakersArray", [i]);
-        console.log(staker);
-        i++;
-      } catch (error) {
-        running = false;
-      }
-    }
-  }
 
   const tokenAddress = '0xD301511Ab784A2F79A70a39A4c90a8DA479e09a4';
   const tokenSymbol = 'points';
@@ -147,16 +125,6 @@ export default function Home() {
             });}}
           >
           Add Pointless to Metamask
-          </Web3Button>
-          
-
-          <Web3Button
-            className={styles.button}
-            action={async () => {
-              await updateStakes();
-            }}
-          >
-            Update stakers
           </Web3Button>
 
           <Web3Button
